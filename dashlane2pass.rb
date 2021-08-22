@@ -30,16 +30,10 @@ end
 
 CSV.foreach($ARGV[0]) do |row|
   case row.length
-  when 4
-    _, title, password = row
-    store(title, [password])
-  when 5
-    _, title, username, password = row
-    store(title, [password, "Username: #{username}"])
-  when 6
-    _, title, username, email, password = row
-    store(title, [password, "Username: #{username}", "Email: #{email}"])
+  when 9
+    username, username2, username3, title, password, note, url, category, otpSecret, = row
+    store(title, [password, "Username: #{username2}", "Email: #{username}"])
   else
-    STDERR.puts "Skipped: #{row}"
+    STDERR.puts "Skipped: #{row.length}"
   end
 end
