@@ -13,8 +13,8 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-def store(title, data)
-  command = "pass insert -m 'Dashlane/#{title}' > /dev/null"
+def store(title, email, data)
+  command = "pass insert -m 'Dashlane/#{title}/#{email}' > /dev/null"
   puts command
 
   return if @options[:dry_run]
@@ -29,15 +29,10 @@ def store(title, data)
 end
 
 CSV.foreach($ARGV[0]) do |row|
-  case row.length
-  when 9
     username, username2, username3, title, password, note, url, category, otpSecret, = row
-    if title.to_s.strip.empty?
-        newTitle = url.split("/")
-        title = newTitle[2]
-    end
-    store(title, [password, "Username: #{username2}", "Email: #{username}"])
-  else
-    STDERR.puts "Skipped: #{row.length}"
-  end
+        if title.to_s.strip.empty?
+            newTitle = url.split("/")
+            title = newTitle[2]
+        end
+    store(title, username, [password, "Username: #{username2}"])
 end
