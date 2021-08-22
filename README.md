@@ -1,2 +1,2 @@
 # dashlane2pass
-Conversion script for Dashlane to Password Store
+Updated conversion script for Dashlane to Password Store to work with the newer CSV export.
