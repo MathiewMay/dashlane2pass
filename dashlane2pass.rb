@@ -30,9 +30,13 @@ end
 
 CSV.foreach($ARGV[0]) do |row|
     username, username2, username3, title, password, note, url, category, otpSecret, = row
-        if title.to_s.strip.empty?
-            newTitle = url.split("/")
-            title = newTitle[2]
-        end
-    store(title, username, [password, "Username: #{username2}"])
+    if title.to_s.strip.empty?
+        newTitle = url.split("/")
+        title = newTitle[2]
+    end
+    if username2.to_s.strip.empty?
+        store(title, username, [password])
+    else
+        store(title, username, [password, "Username: #{username2}"])
+    end
 end
